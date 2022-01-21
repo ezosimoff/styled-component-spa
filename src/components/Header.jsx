@@ -42,11 +42,7 @@ const Header = () => {
 					<Title>Where is the world?</Title>
 					<Switcher onClick={toggleTheme}>
 						<span style={{ marginRight: "5px" }}>{theme}</span>
-						{theme === "light" ? (
-							<FaRegMoon style={{ fontSize: "16px" }} />
-						) : (
-							<FaMoon style={{ fontSize: "16px" }} />
-						)}
+						{theme === "light" ? <FaRegMoon /> : <FaMoon />}
 					</Switcher>
 				</Wrapper>
 			</Container>
