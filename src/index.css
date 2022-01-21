@@ -1,3 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;600;800&family=Roboto:wght@100&display=swap");
+
+:root {
+	--famyly: "Nunito Sans", sans-serif;
+	--fs-sm: 14px;
+	--fs-md: 16px;
+	--fw-light: 300;
+	--fw-normal: 600;
+	--fw-bold: 800;
+
+	--radius: 0.5rem;
+}
+body[data-theme="light"] {
+	--text-color: hsl(200, 15%, 8%);
+	--bg-color: hsl(0, 0%, 98%);
+	--ui-base-color: hsl(0, 0%, 100%);
+
+	--shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+body[data-theme="dark"] {
+	--text-color: hsl(0, 0%, 100%);
+	--bg-color: hsl(207, 26%, 17%);
+	--ui-base-color: hsl(209, 23%, 22%);
+
+	--shadow: rgba(245, 245, 245, 0.2) 0 0 8px;
+}
+
+body {
+	margin: 0;
+	font-family: var(--family);
+	color: var(--text-color);
+	font-weight: var(--fw-light);
+	background-color: var(--bg-color);
+}
+
 *,
 *::before,
 *::after {
@@ -40,6 +76,10 @@ body {
 ul[class],
 ol[class] {
 	list-style: none;
+}
+
+a {
+	text-decoration: none;
 }
 
 a:not([class]) {
