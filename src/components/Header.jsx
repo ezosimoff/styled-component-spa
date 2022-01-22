@@ -1,7 +1,7 @@
-import React from "react";
-import styled from "styled-components";
-import { FaRegMoon, FaMoon } from "react-icons/fa";
-import Container from "./Container";
+import React from 'react';
+import styled from 'styled-components';
+import { FaRegMoon, FaMoon } from 'react-icons/fa';
+import Container from './Container';
 
 const HeaderEl = styled.header`
 	box-shadow: var(--shadow);
@@ -23,16 +23,16 @@ const Switcher = styled.div`
 	text-transform: capitalize;
 `;
 const Title = styled.a.attrs({
-	href: "/",
+	href: '/',
 })`
 	color: var(--text-color);
 `;
 
 const Header = () => {
-	const [theme, setTheme] = React.useState("light");
-	const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
+	const [theme, setTheme] = React.useState('light');
+	const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
 	React.useEffect(() => {
-		document.body.setAttribute("data-theme", theme); // body not need ref
+		document.body.setAttribute('data-theme', theme); // body not need ref
 	}, [theme]);
 
 	return (
@@ -41,8 +41,8 @@ const Header = () => {
 				<Wrapper>
 					<Title>Where is the world?</Title>
 					<Switcher onClick={toggleTheme}>
-						<span style={{ marginRight: "5px" }}>{theme}</span>
-						{theme === "light" ? <FaRegMoon /> : <FaMoon />}
+						<span style={{ marginRight: '5px' }}>{theme} Mode</span>
+						{theme === 'light' ? <FaRegMoon /> : <FaMoon />}
 					</Switcher>
 				</Wrapper>
 			</Container>

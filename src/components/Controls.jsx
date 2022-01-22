@@ -2,7 +2,6 @@ import React from 'react';
 import Search from './Search';
 import CustomSelect from './CustomSelect';
 import styled from 'styled-components';
-import { FaLaptopHouse } from 'react-icons/fa';
 
 const optios = [
 	{ value: 'Africa', label: 'Africa' },
@@ -25,8 +24,14 @@ const Wrapper = styled.div`
 `;
 
 const Controls = (props) => {
+	const { handleSearch, placeholder } = props;
 	const [search, setSearch] = React.useState('');
 	const [region, setRegion] = React.useState('');
+
+	React.useEffect(() => {
+		handleSearch(search, region?.value || null);
+	}, [region, search]);
+
 	return (
 		<Wrapper>
 			<Search search={search} setSearch={setSearch} />
@@ -36,7 +41,7 @@ const Controls = (props) => {
 				isSearchable={false}
 				value={region}
 				onChange={setRegion}
-				placeholder={props.placeholder}
+				placeholder={placeholder}
 			/>
 		</Wrapper>
 	);
