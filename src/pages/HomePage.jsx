@@ -1,10 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Card from '../components/Card';
 import Controls from '../components/Controls';
 import Countrieslist from '../components/CountriesList';
 
 const HomePage = ({ countries }) => {
 	const [filtered, setFiltered] = React.useState([]);
+	const navigate = useNavigate();
 
 	React.useEffect(() => {
 		setFiltered(countries);
@@ -49,7 +51,13 @@ const HomePage = ({ countries }) => {
 							},
 						],
 					};
-					return <Card key={info.name} {...info} />;
+					return (
+						<Card
+							key={info.name}
+							{...info}
+							click={() => navigate(`/country/${info.name}`)}
+						/>
+					);
 				})}
 			</Countrieslist>
 		</>

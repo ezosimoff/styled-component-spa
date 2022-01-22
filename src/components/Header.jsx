@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { FaRegMoon, FaMoon } from 'react-icons/fa';
 import Container from './Container';
+import { Link } from 'react-router-dom';
 
 const HeaderEl = styled.header`
 	box-shadow: var(--shadow);
@@ -22,8 +23,8 @@ const Switcher = styled.div`
 	font-weight: var(--fw-light);
 	text-transform: capitalize;
 `;
-const Title = styled.a.attrs({
-	href: '/',
+const Title = styled(Link).attrs({
+	to: '/',
 })`
 	color: var(--text-color);
 `;
