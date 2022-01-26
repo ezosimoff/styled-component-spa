@@ -5,4 +5,4 @@ export const GET_ALL =
 
 export const searchByCountry = (name) => API_BASE_URL + 'name/' + name;
 export const searchByCode = (codes) =>
-	API_BASE_URL + 'alfa?codes=/' + codes.join(',');
+	API_BASE_URL + 'alpha?codes=' + codes.join(',');

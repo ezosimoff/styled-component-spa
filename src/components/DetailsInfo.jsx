@@ -1,5 +1,8 @@
-import axios from 'axios';
+import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
+import { searchByCode } from '../config';
+import axios from 'axios';
 
 const Wrapper = styled.section`
 	margin-top: 3rem;
@@ -82,61 +85,108 @@ const Tag = styled.span`
 `;
 
 const DetailsInfo = (props) => {
+	const [borderCountries, setBorderCountries] = React.useState([]);
+	const navigate = useNavigate();
+	let currencySymbol;
+	let currency;
+	let cangList = '';
+
+	if (props.currencies) {
+		currency = Object.keys(props.currencies);
+	}
+
+	for (let key in props.currencies) {
+		currencySymbol = props.currencies[key].symbol;
+	}
+
 	const {
 		name,
-		nativeName,
-		flag,
+		flags,
 		capital,
 		population,
 		region,
 		subregion,
-		topLevelDomain,
-		currencies = [],
-		languages = [],
+		tld,
+		languages = {},
 		borders = [],
-		push,
 	} = props;
+
+	for (let key in languages) {
+		cangList += languages[key] + ' ';
+	}
+
+	React.useEffect(() => {
+		if (borders.length) {
+			const lowerBorders = borders.map((el) => el.toLowerCase());
+			axios.get(searchByCode(lowerBorders)).then(({ data }) => {
+				setBorderCountries(data);
+			});
+		}
+	}, [borders]);
 
 	return (
 		<Wrapper>
-			<InfoImage src={flag} alt={name} />
+			<InfoImage src={flags.svg} alt={name.official} />
 
 			<div>
-				<InfoTitle>{name}</InfoTitle>
+				<InfoTitle>{name.official}</InfoTitle>
 				<ListGroup>
 					<List>
 						<ListItem>
-							<b>Native Name:</b> {nativeName}
+							<strong>Native Name: </strong> {name.common}
 						</ListItem>
 						<ListItem>
-							<b>Population</b> {population}
+							<strong>Population: </strong>
+							{population.toLocaleString()}
 						</ListItem>
 						<ListItem>
-							<b>Region:</b> {region}
+							<strong>Region:</strong> {region}
 						</ListItem>
 						<ListItem>
-							<b>Sub Region:</b> {subregion}
+							<strong>Sub Region: </strong> {subregion}
 						</ListItem>
 						<ListItem>
-							<b>Capital:</b> {capital}
+							{capital && <strong>Capital: </strong>} {capital}
 						</ListItem>
 					</List>
 					<List>
 						<ListItem>
-							<b>Top Level Domain</b>{' '}
+							<strong>Top Level Domain: </strong> {tld}
 						</ListItem>
 						<ListItem>
-							<b>Currency</b>{' '}
+							<strong>Currency: </strong>
+							{currency}
 						</ListItem>
-						<ListItem></ListItem>
+						<ListItem>
+							<strong>Symbol: </strong>
+							{currencySymbol}
+						</ListItem>
+						<ListItem>
+							<strong>Languages: </strong>
+							{cangList}
+						</ListItem>
 					</List>
 				</ListGroup>
 				<Meta>
-					<b>Border Countries</b>
-					{!borders.length ? (
+					<strong>Border Countries</strong>
+					{!borderCountries.length ? (
 						<span>There is no border countries</span>
 					) : (
-						<TagGroup></TagGroup>
+						<TagGroup>
+							{borderCountries.map((el) => (
+								<Tag
+									key={el.area}
+									onClick={() => {
+										navigate(
+											`/country/${el.name.official}`
+										);
+									}}
+								>
+									{' '}
+									{el.cca3}{' '}
+								</Tag>
+							))}
+						</TagGroup>
 					)}
 				</Meta>
 			</div>

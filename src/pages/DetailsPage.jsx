@@ -23,8 +23,8 @@ const Button = styled.button`
 	}
 `;
 
-const Detailspage = () => {
-	const [country, setCountry] = React.useState({});
+const Detailspage = (props) => {
+	const [country, setCountry] = React.useState(null);
 	const params = useParams();
 
 	React.useEffect(() => {
@@ -36,11 +36,10 @@ const Detailspage = () => {
 	const navigate = useNavigate();
 	return (
 		<>
-			{console.log('render')}
 			<Button onClick={() => navigate(-1)}>
 				<FaArrowLeft /> Back
 			</Button>
-			<DetailsInfo />
+			{country && <DetailsInfo {...country} />}
 		</>
 	);
 };
